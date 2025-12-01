@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<! DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,7 @@
     <title>Sip</title>
     <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
     <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare. com/ajax/libs/font-awesome/6.5.1/css/all. min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -44,13 +44,13 @@
                 <div class="help-content">
                     <section class="help-section">
                         <h4><i class="fa-solid fa-icons"></i> Customizing Icons</h4>
-                        <p>This startpage uses <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">Font Awesome</a> icons. You can customize icons for categories and links in Settings.</p>
+                        <p>This startpage uses <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">Font Awesome</a> icons. You can customize icons for categories and links in Settings.[...]
                     </section>
                     
                     <section class="help-section">
                         <h4><i class="fa-solid fa-magnifying-glass"></i> Step 1: Find an Icon</h4>
                         <ol class="help-steps">
-                            <li>Go to <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">fontawesome.com/search</a></li>
+                            <li>Go to <a href="https://fontawesome. com/search?o=r&m=free" target="_blank">fontawesome.com/search</a></li>
                             <li>Type a keyword in the search box (e.g., "linux", "music", "cloud")</li>
                             <li>Click the <strong>"Free"</strong> filter button on the right side to show only free icons</li>
                             <li>Click on the icon you want to use</li>
@@ -181,6 +181,15 @@
                         
                         <div class="setting-item setting-item-vertical">
                             <div class="setting-label">
+                                <i class="fa-solid fa-cloud-sun"></i>
+                                <span>Weather Data</span>
+                            </div>
+                            <p class="setting-description">Enter your <a href="https://openweathermap.org/api" target="_blank">OpenWeatherMap</a> API key for live weather.  Leave empty to use mock data.</p>
+                            <input type="text" id="setting-weather-api-key" class="setting-input" placeholder="Enter OpenWeatherMap API key" autocomplete="off">
+                        </div>
+                        
+                        <div class="setting-item setting-item-vertical">
+                            <div class="setting-label">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                                 <span>Search Engines</span>
                             </div>
@@ -226,7 +235,7 @@
                     
                     <!-- Categories Tab -->
                     <div class="settings-panel" data-panel="categories">
-                        <p class="panel-description">Add up to 8 categories. You can use emoji or text for icons.</p>
+                        <p class="panel-description">Add up to 8 categories.  You can use emoji or text for icons.</p>
                         <div class="categories-list" id="categories-list">
                             <!-- Categories will be populated dynamically -->
                         </div>
@@ -288,7 +297,7 @@
         <footer class="footer">
             <div class="widget weather-widget">
                 <span class="widget-icon"><i class="fa-solid fa-cloud-sun"></i></span>
-                <span class="widget-text" id="weather">Loading...</span>
+                <span class="widget-text" id="weather">Loading... </span>
             </div>
             <div class="widget quote-widget">
                 <span class="widget-icon"><i class="fa-solid fa-quote-left"></i></span>
