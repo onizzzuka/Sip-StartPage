@@ -11,7 +11,7 @@ Transform your browser's new tab into a beautiful, personalized workspace with S
 
 **Smart Search**
 - Integrated search respecting your default search engine (Chrome)
-- Quick engine switching for Google, DuckDuckGo, GitHub, YouTube, Bing, Amazon, and Wikipedia
+- Quick engine switching between multiple search providers
 - Keyboard shortcuts for lightning-fast navigation
 
 **Personalization**
@@ -95,7 +95,7 @@ Made with ☕ and 💜 using Catppuccin themes
 
 - **Catppuccin Themes** - Mocha (dark) and Latte (light) color palettes
 - **Glassmorphism UI** - Modern frosted glass effects with ambient glows
-- **Multi-Engine Search** - Quick switch between Google, DuckDuckGo, GitHub, and YouTube
+- **Multi-Engine Search** - Quick switch between popular search engines and developer resources
 - **Dynamic Greeting** - Personalized time-based greetings with sunrise/sun/sunset/moon icons
 - **Quick Links** - Categorized bookmarks (Development, Social, Media, Productivity)
 - **Weather Widget** - Current weather with °F/°C toggle
