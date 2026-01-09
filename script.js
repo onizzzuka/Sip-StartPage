@@ -745,7 +745,8 @@ function updateKeyboardHints() {
     }
     
     const engineCount = settings.enabledEngines.length;
-    const engineHint = engineCount > 1 ? `<kbd>1-${engineCount}</kbd> Engine` : '';
+    const maxEngines = 9; // Maximum possible engines
+    const engineHint = engineCount > 1 ? `<kbd>1-${Math.min(engineCount, maxEngines)}</kbd> Engine` : '';
     
     hintsContainer.innerHTML = `
         <span class="hint"><kbd>/</kbd> Search</span>
@@ -859,6 +860,153 @@ function showMockWeather() {
             iconElement.innerHTML = `<i class="fa-solid ${weather.icon}"></i>`;
         }
     }
+}
+
+// ========================================
+// Weather Forecast Function (3-Day)
+// ========================================
+
+async function updateForecast() {
+    // Check if API key is configured
+    if (!settings.openWeatherApiKey || !settings.weatherLocation) {
+        // Fall back to mock forecast data if no API key or location
+        showMockForecast();
+        return;
+    }
+
+    const query = `q=${encodeURIComponent(settings.weatherLocation)}`;
+    fetchForecast(query);
+}
+
+async function fetchForecast(query) {
+    try {
+        const unit = settings.tempUnit === 'C' ? 'metric' : 'imperial';
+        const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/forecast?${query}&appid=${settings.openWeatherApiKey}&units=${unit}&cnt=40`
+        );
+        
+        if (!response.ok) {
+            console.error('Forecast API error:', response.status, response.statusText);
+            throw new Error('Forecast API error');
+        }
+        
+        const data = await response.json();
+        
+        // Process forecast data to get one forecast per day (noon time), starting from tomorrow
+        const dailyForecasts = [];
+        const processedDates = new Set();
+        const today = new Date().toDateString();
+        
+        for (const item of data.list) {
+            const date = new Date(item.dt * 1000);
+            const dateStr = date.toDateString();
+            
+            // Skip today, get forecast around noon for each day (12:00 PM)
+            if (dateStr !== today && !processedDates.has(dateStr) && date.getHours() >= 12 && date.getHours() <= 15) {
+                processedDates.add(dateStr);
+                dailyForecasts.push({
+                    date: date,
+                    temp: Math.round(item.main.temp),
+                    tempMax: Math.round(item.main.temp_max),
+                    tempMin: Math.round(item.main.temp_min),
+                    condition: item.weather[0].main,
+                    icon: item.weather[0].icon
+                });
+                
+                if (dailyForecasts.length === 3) break;
+            }
+        }
+        
+        renderForecastWidget(dailyForecasts, unit);
+    } catch (err) {
+        console.error('Forecast fetch error:', err);
+        showMockForecast();
+    }
+}
+
+function showMockForecast() {
+    const today = new Date();
+    const mockDailyForecasts = [];
+    
+    // Generate 3 days starting from tomorrow
+    for (let i = 1; i <= 3; i++) {
+        const forecastDate = new Date(today);
+        forecastDate.setDate(today.getDate() + i);
+        
+        const mockConditions = [
+            { temp: 72, tempMax: 75, tempMin: 65, condition: 'Sunny', icon: 'fa-sun' },
+            { temp: 68, tempMax: 70, tempMin: 62, condition: 'Cloudy', icon: 'fa-cloud' },
+            { temp: 65, tempMax: 68, tempMin: 60, condition: 'Rainy', icon: 'fa-cloud-rain' },
+            { temp: 70, tempMax: 73, tempMin: 64, condition: 'Partly Cloudy', icon: 'fa-cloud-sun' },
+            { temp: 74, tempMax: 77, tempMin: 66, condition: 'Clear', icon: 'fa-sun' }
+        ];
+        
+        const condition = mockConditions[i % mockConditions.length];
+        
+        mockDailyForecasts.push({
+            date: forecastDate,
+            temp: condition.temp,
+            tempMax: condition.tempMax,
+            tempMin: condition.tempMin,
+            condition: condition.condition,
+            icon: condition.icon
+        });
+    }
+    
+    const tempUnit = settings.tempUnit === 'C' ? 'metric' : 'imperial';
+    
+    // Convert to Celsius if needed
+    const forecasts = mockDailyForecasts.map(forecast => {
+        if (settings.tempUnit === 'C') {
+            return {
+                ...forecast,
+                temp: Math.round((forecast.temp - 32) * 5 / 9),
+                tempMax: Math.round((forecast.tempMax - 32) * 5 / 9),
+                tempMin: Math.round((forecast.tempMin - 32) * 5 / 9)
+            };
+        }
+        return forecast;
+    });
+    
+    renderForecastWidget(forecasts, tempUnit, false);
+}
+
+function renderForecastWidget(forecasts, unit, isMock = false) {
+    const forecastWidget = document.querySelector('.forecast-widget');
+    if (!forecastWidget) return;
+    
+    const tempUnit = unit === 'metric' ? '°C' : '°F';
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    
+    const forecastHTML = forecasts.map((forecast, index) => {
+        let dayName;
+        if (forecast.date) {
+            dayName = dayNames[forecast.date.getDay()];
+        } else {
+            // Fallback if no date (starting from tomorrow)
+            dayName = dayNames[(new Date().getDay() + index + 1) % 7];
+        }
+        
+        let iconHTML;
+        if (isMock) {
+            iconHTML = `<i class="fa-solid ${forecast.icon}"></i>`;
+        } else if (forecast.icon && forecast.icon.startsWith('fa-')) {
+            iconHTML = `<i class="fa-solid ${forecast.icon}"></i>`;
+        } else {
+            const iconUrl = `https://openweathermap.org/img/wn/${forecast.icon}@2x.png`;
+            iconHTML = `<img src="${iconUrl}" alt="${forecast.condition}">`;
+        }
+        
+        return `
+            <div class="forecast-day">
+                <div class="forecast-day-name">${dayName}</div>
+                <div class="forecast-icon">${iconHTML}</div>
+                <div class="forecast-temp-range">${forecast.tempMax}° / ${forecast.tempMin}°</div>
+            </div>
+        `;
+    }).join('');
+    
+    forecastWidget.innerHTML = `<div class="forecast-days">${forecastHTML}</div>`;
 }
 
 // ========================================
@@ -1065,6 +1213,17 @@ function createFooterWidget(type) {
         setTimeout(() => {
             weatherElement = document.getElementById('weather');
             updateWeather();
+        }, 0);
+        return widget;
+    }
+    
+    if (type === 'forecast') {
+        const widget = document.createElement('div');
+        widget.className = 'forecast-widget';
+        widget.innerHTML = '<div class="forecast-days">Loading forecast...</div>';
+        // Fetch forecast data
+        setTimeout(() => {
+            updateForecast();
         }, 0);
         return widget;
     }

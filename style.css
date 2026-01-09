@@ -2474,6 +2474,112 @@ kbd {
     transform: translateY(-2px);
 }
 
+/* Forecast Widget */
+.forecast-widget {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding: 0;
+    background: transparent;
+    border: none;
+    min-width: auto;
+}
+
+.forecast-days {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.forecast-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+    padding: 0.25rem 0.625rem;
+    background: var(--surface0);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    min-width: 85px;
+    max-width: 95px;
+    transition: all var(--transition-fast);
+}
+
+.forecast-day:hover {
+    background: var(--surface1);
+    transform: translateY(-2px);
+}
+
+.forecast-day-name {
+    font-size: 0.65rem;
+    color: var(--subtext0);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.forecast-icon {
+    font-size: 1.15rem;
+    color: var(--accent);
+}
+
+.forecast-icon img {
+    width: 1.75em;
+    height: 1.75em;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.forecast-temp-range {
+    font-size: 0.75rem;
+    color: var(--text);
+    font-weight: 500;
+}
+
+/* Compact mode for forecast */
+[data-density="compact"] .forecast-widget {
+    min-width: 190px;
+    padding: 0.375rem var(--spacing-sm);
+}
+
+[data-density="compact"] .forecast-days {
+    gap: 0.25rem;
+}
+
+[data-density="compact"] .forecast-day {
+    padding: 0.25rem 0.375rem;
+}
+
+[data-density="compact"] .forecast-icon {
+    font-size: 1.1rem;
+}
+
+[data-density="compact"] .forecast-icon img {
+    width: 1.75em;
+    height: 1.75em;
+}
+
+/* Responsive adjustments for forecast */
+@media (max-width: 768px) {
+    .forecast-widget {
+        min-width: 100%;
+    }
+    
+    .forecast-days {
+        gap: var(--spacing-xs);
+    }
+    
+    .forecast-day {
+        padding: 0.375rem;
+    }
+    
+    .forecast-day-name {
+        font-size: 0.65rem;
+    }
+    
+    .forecast-temp {
+        font-size: 0.8rem;
+    }
+}
+
 /* Developer Credits */
 .developer-credits {
     margin-top: var(--spacing-xl);
