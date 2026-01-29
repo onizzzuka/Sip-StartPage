@@ -313,6 +313,97 @@
 }
 
 /* ========================================
+   Everforest Theme
+   ======================================== */
+
+/* Everforest Dark */
+[data-scheme="everforest"][data-theme="dark"] {
+    /* Base colors */
+    --crust: #1e2326;
+    --mantle: #232a2e;
+    --base: #2d353b;
+    --surface0: #343f44;
+    --surface1: #3d484d;
+    --surface2: #475258;
+    --overlay0: #5b6669;
+    --overlay1: #6d787b;
+    --overlay2: #808b8d;
+    --text: #d3c6aa;
+    --subtext0: #c1b79a;
+    --subtext1: #aea58a;
+
+    /* Accent colors */
+    --rosewater: #d699b6;
+    --flamingo: #e67e80;
+    --pink: #d699b6;
+    --mauve: #c18f92;
+    --red: #e67e80;
+    --maroon: #e78a4e;
+    --peach: #e69875;
+    --yellow: #d8ba6e;
+    --green: #a7c080;
+    --teal: #7fbbb3;
+    --sky: #83c092;
+    --sapphire: #7baea0;
+    --blue: #7fbbb3;
+    --lavender: #d699b6;
+
+    /* Semantic colors */
+    --primary: #a7c080;
+    --secondary: #7fbbb3;
+    --accent: #e69875;
+
+    /* Glass effect */
+    --glass-bg: rgba(45,53,59,0.6);
+    --glass-border: rgba(211,198,170,0.1);
+    --glass-shadow:08px32px rgba(0,0,0,0.4);
+}
+
+/* Everforest Light */
+[data-scheme="everforest"][data-theme="light"] {
+    /* Base colors */
+    --crust: #f8f5e4;
+    --mantle: #f3ead3;
+    --base: #efebd4;
+    --surface0: #e1ddc3;
+    --surface1: #d3cfb6;
+    --surface2: #c5c1aa;
+    --overlay0: #aba68f;
+    --overlay1: #918d79;
+    --overlay2: #777563;
+    --text: #5c6a72;
+    --subtext0: #6b6f5f;
+    --subtext1: #4f5544;
+
+    /* Accent colors */
+    --rosewater: #df69ba;
+    --flamingo: #f57d26;
+    --pink: #df69ba;
+    --mauve: #b98ba5;
+    --red: #f85552;
+    --maroon: #f57d26;
+    --peach: #f57d26;
+    --yellow: #dfa000;
+    --green: #8da101;
+    --teal: #35a77c;
+    --sky: #4db5bd;
+    --sapphire: #3d9a9f;
+    --blue: #3a94c5;
+    --lavender: #df69ba;
+
+    /* Semantic colors */
+    --primary: #8da101;
+    --secondary: #3a94c5;
+    --accent: #f57d26;
+
+    /* Glass effect */
+    --glass-bg: rgba(239,235,212,0.7);
+    --glass-border: rgba(92,106,114,0.12);
+    --glass-shadow:08px32px rgba(92,106,114,0.1);
+}
+
+
+/* ========================================
    Tokyo Night Theme
    ======================================== */
 
