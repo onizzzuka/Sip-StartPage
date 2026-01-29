@@ -2378,15 +2378,13 @@ kbd {
     border: 1px solid var(--glass-border);
 }
 
-.social-checkbox,
-.settings-checkbox {
+.social-checkbox {
     display: flex;
     align-items: center;
     cursor: pointer;
 }
 
-.social-checkbox input,
-.settings-checkbox input {
+.social-checkbox input {
     width: 20px;
     height: 20px;
     cursor: pointer;
@@ -2399,14 +2397,12 @@ kbd {
     position: relative;
 }
 
-.social-checkbox input:checked,
-.settings-checkbox input:checked {
+.social-checkbox input:checked {
     background: var(--primary);
     border-color: var(--primary);
 }
 
-.social-checkbox input:checked::after,
-.settings-checkbox input:checked::after {
+.social-checkbox input:checked::after {
     content: '✓';
     position: absolute;
     top: 50%;
@@ -2417,8 +2413,7 @@ kbd {
     font-weight: bold;
 }
 
-.social-checkbox input:hover,
-.settings-checkbox input:hover {
+.social-checkbox input:hover {
     border-color: var(--primary);
 }
 
