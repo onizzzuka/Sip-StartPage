@@ -134,6 +134,7 @@ function loadSettings() {
         footerLeft: 'weather',
         footerCenter: 'blank',
         footerRight: 'quotes',
+        showCredentials: 'true',
         socialLinks: [],
         quotes: [
             '"The only way to do great work is to love what you do." - Steve Jobs',
@@ -182,7 +183,8 @@ function loadSettings() {
         customColors: JSON.parse(localStorage.getItem('customColors') || JSON.stringify(defaults.customColors)),
         backgroundImage: localStorage.getItem('backgroundImage') || null,
         backgroundSize: localStorage.getItem('backgroundSize') || 'cover',
-        backgroundBlur: localStorage.getItem('backgroundBlur') === 'true'
+        backgroundBlur: localStorage.getItem('backgroundBlur') === 'true',
+        showCredentials: localStorage.getItem('showCredentials') ?? defaults.showCredentials
     };
 }
 
@@ -753,6 +755,18 @@ function updateKeyboardHints() {
         ${engineHint ?  `<span class="hint">${engineHint}</span>` : ''}
         <span class="hint"><kbd>Esc</kbd> Clear</span>
     `;
+}
+
+function updateCredentials() {
+    const credentialsContainer = document.querySelector('.developer-credits');
+    if (!credentialsContainer) return;
+
+    if (settings.showCredentials === 'false') {
+        credentialsContainer.style.display = 'none';
+        return;
+    } else {
+        credentialsContainer.style.display = 'block';
+    }
 }
 
 // ========================================
@@ -1408,6 +1422,8 @@ function initSettings() {
                 renderLinksGrid();
             } else if (setting === 'showKeyboardHints') {
                 updateKeyboardHints();
+            } else if (setting === 'showCredentials') {
+                updateCredentials();
             } else if (setting === 'headerLeft' || setting === 'headerRight') {
                 updateHeader();
             } else if (setting === 'footerLeft' || setting === 'footerCenter' || setting === 'footerRight') {
@@ -2479,6 +2495,9 @@ function init() {
     
     // Update background image UI
     updateBackgroundImageUI();
+
+    // Update showing credentials
+    updateCredentials();
     
     // Focus search input after a brief delay
     setTimeout(() => {
@@ -2513,7 +2532,8 @@ function exportSettings() {
             footerLeft: localStorage.getItem('footerLeft'),
             footerCenter: localStorage.getItem('footerCenter'),
             footerRight: localStorage.getItem('footerRight'),
-            socialLinks: localStorage.getItem('socialLinks')
+            socialLinks: localStorage.getItem('socialLinks'),
+            showCredentials: localStorage.getItem('showCredentials'),
         },
         categories: localStorage.getItem('categories'),
         links: localStorage.getItem('links')
